@@ -14,6 +14,10 @@ let listaBuscador = []
 
 document.addEventListener("DOMContentLoaded",()=>{
         fetchData()
+        if(localStorage.getItem("todo")){
+            carrito = JSON.parse(localStorage.getItem("todo"))
+            Carrito.pintarCarrito(carrito)
+        }
     }
 )
 const fetchData = async() =>{
@@ -80,6 +84,7 @@ class Carta extends Productos {
 /*-----------------empiezo a pintar las cosas en pantalla a apartir de aca-------------------*/
 
 document.addEventListener("click" ,e=>{
+
     if(e.target.matches(".agregar-carrito")){
         if(carrito.findIndex(element => e.target.dataset.id === element.id) === -1){
             carrito.push(lista.find(element => e.target.dataset.id === element.id))
@@ -95,12 +100,15 @@ document.addEventListener("click" ,e=>{
     }else{
         vacio.textContent= ""
     }
+    localStorage.setItem("todo" , JSON.stringify(carrito))
 })
 
 botonVaciarCarrito.addEventListener("click", e =>{
+
     e.preventDefault()
     carrito = []
     Carrito.pintarCarrito(carrito)
+    localStorage.setItem("todo" , JSON.stringify(carrito))
 })
 buscadorBarra.addEventListener("submit", e=>{
     productos.textContent= ""
