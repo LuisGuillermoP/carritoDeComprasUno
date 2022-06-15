@@ -5,6 +5,7 @@ const busacarBoton = document.getElementById("buscar")
 let productos = document.getElementById("contenedor-productos")
 const templateCarrito = document.getElementById("carta-carrito")
 const templateProductos = document.getElementById("carta-de-productos")
+const vacio = document.querySelector(".vacio")
 
 //este codigo esta preparado para poder comunicarla con una api , como lo hara no es problema mio
 let carrito = []
@@ -88,6 +89,11 @@ document.addEventListener("click" ,e=>{
     if(e.target.matches(".borrar-platillo")){
         carrito = carrito.filter(element=>element.id !== e.target.dataset.id)
         Carrito.pintarCarrito(carrito)
+    }
+    if(carrito.length === 0){
+        vacio.textContent= "carrito vacio"
+    }else{
+        vacio.textContent= ""
     }
 })
 
